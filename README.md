@@ -316,4 +316,8 @@ Scheduled mgr update...
 
 ```
 
+#### 9、通过浏览器打开ceph控制台：
+![](./img/ceph-1.jpg)
+![](./img/ceph-2.jpg)
+
 
