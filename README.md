@@ -1,12 +1,12 @@
 
 
 ## 一、Ceph集群规划
-|ID  |服务器IP     |主机名  |系统版本  |
-|:-: |:-:          |:-:     |:-:       |
-|1   |172.16.0.111 |ceph01  |Rocky8.7  |
-|2   |172.16.0.112 |ceph02  |Rocky8.7  |
-|3   |172.16.0.113 |ceph03  |Rocky8.7  |
-|4   |172.16.0.114 |ceph04  |Rocky8.7  |
+|ID  |服务器IP     |主机名  |系统版本  |磁盘                        |
+|:-: |:-:          |:-:     |:-:       |:-:                         |
+|1   |172.16.0.111 |ceph01  |Rocky8.7  |/dev/vdb,/dev/vdc,/dev/vdd  |
+|2   |172.16.0.112 |ceph02  |Rocky8.7  |/dev/vdb,/dev/vdc,/dev/vdd  |
+|3   |172.16.0.113 |ceph03  |Rocky8.7  |/dev/vdb,/dev/vdc,/dev/vdd  |
+|4   |172.16.0.114 |ceph04  |Rocky8.7  |/dev/vdb,/dev/vdc,/dev/vdd  |
 
 
 ## 二、基础环境配置（除了免密登录其它节点都需要配置）
@@ -280,32 +280,40 @@ Scheduled mon update...
 Scheduled mgr update...
 ```
 
-#### 7、查看集群进程
+#### 7、添加osd
 ```shell
-[root@ceph01 ~]# ceph orch ps
-NAME                  HOST    PORTS        STATUS          REFRESHED   AGE  MEM USE  MEM LIM  VERSION  IMAGE ID      CONTAINER ID  
-alertmanager.ceph01   ceph01  *:9093,9094  running (102s)    24s ago   38m    15.3M        -  0.23.0   ba2b418f427c  0069c58b5e83  
-ceph-exporter.ceph01  ceph01               running (38m)     24s ago   38m    6483k        -  17.2.6   52bedc025a3c  e8bf7bcfd3d5  
-ceph-exporter.ceph02  ceph02               running (9m)       7m ago    9m    6055k        -  17.2.6   52bedc025a3c  a3dbed25490b  
-ceph-exporter.ceph03  ceph03               running (8m)     104s ago    8m    6251k        -  17.2.6   52bedc025a3c  1ca18243f16f  
-ceph-exporter.ceph04  ceph04               running (7m)       2m ago    7m    6175k        -  17.2.6   52bedc025a3c  86839b6f9128  
-crash.ceph01          ceph01               running (38m)     24s ago   38m    7063k        -  17.2.6   52bedc025a3c  d59730c8370f  
-crash.ceph02          ceph02               running (9m)       7m ago    9m    7067k        -  17.2.6   52bedc025a3c  33db93481b22  
-crash.ceph03          ceph03               running (8m)     104s ago    8m    7084k        -  17.2.6   52bedc025a3c  d29a3e4615d6  
-crash.ceph04          ceph04               running (7m)       2m ago    7m    7071k        -  17.2.6   52bedc025a3c  dc05c71fd6b3  
-grafana.ceph01        ceph01  *:3000       running (37m)     24s ago   38m    55.8M        -  8.3.5    dad864ee21e9  d86dc5d122b0  
-mgr.ceph01.gwcwvz     ceph01  *:9283       running (39m)     24s ago   39m     474M        -  17.2.6   52bedc025a3c  42bdc30cf72a  
-mgr.ceph02.ztsjzq     ceph02  *:8443,9283  running (9m)       7m ago    9m     407M        -  17.2.6   52bedc025a3c  273a8c48017f  
-mgr.ceph03.otsafz     ceph03  *:8443,9283  running (111s)   104s ago  111s     141M        -  17.2.6   52bedc025a3c  15f48d26a681  
-mon.ceph01            ceph01               running (39m)     24s ago   39m    50.4M    2048M  17.2.6   52bedc025a3c  cd3f84b9495f  
-mon.ceph02            ceph02               running (8m)       7m ago    8m    35.5M    2048M  17.2.6   52bedc025a3c  7d844642fd99  
-mon.ceph03            ceph03               running (8m)     104s ago    8m    36.4M    2048M  17.2.6   52bedc025a3c  643d3b4a604a  
-node-exporter.ceph01  ceph01  *:9100       running (38m)     24s ago   38m    23.1M        -  1.3.1    1dbe0e931976  cce5b64ed840  
-node-exporter.ceph02  ceph02  *:9100       running (8m)       7m ago    8m    16.1M        -  1.3.1    1dbe0e931976  c7408086dd71  
-node-exporter.ceph03  ceph03  *:9100       running (8m)     104s ago    8m    11.3M        -  1.3.1    1dbe0e931976  74d30088eff4  
-node-exporter.ceph04  ceph04  *:9100       running (7m)       2m ago    7m    16.3M        -  1.3.1    1dbe0e931976  de06157fd16d  
-prometheus.ceph01     ceph01  *:9095       running (100s)    24s ago   37m    49.3M        -  2.33.4   514e6a882f6e  f2af554421d6  
+[root@ceph01 ~]# ceph orch daemon add osd ceph01:/dev/vdb raw
+[root@ceph01 ~]# ceph orch daemon add osd ceph01:/dev/vdc raw
+[root@ceph01 ~]# ceph orch daemon add osd ceph01:/dev/vdd raw
+[root@ceph01 ~]# ceph orch daemon add osd ceph02:/dev/vdb raw
+[root@ceph01 ~]# ceph orch daemon add osd ceph02:/dev/vdc raw
+[root@ceph01 ~]# ceph orch daemon add osd ceph02:/dev/vdd raw
+[root@ceph01 ~]# ceph orch daemon add osd ceph03:/dev/vdb raw
+[root@ceph01 ~]# ceph orch daemon add osd ceph03:/dev/vdc raw
+[root@ceph01 ~]# ceph orch daemon add osd ceph03:/dev/vdd raw
+[root@ceph01 ~]# ceph orch daemon add osd ceph04:/dev/vdb raw
+[root@ceph01 ~]# ceph orch daemon add osd ceph04:/dev/vdc raw
+[root@ceph01 ~]# ceph orch daemon add osd ceph04:/dev/vdd raw
 ```
 
+#### 8、查看集群状态：
+```shell
+[root@ceph01 ~]# ceph -s
+  cluster:
+    id:     f0a7abc8-16ec-11ee-a634-5254009a2a54
+    health: HEALTH_OK
+ 
+  services:
+    mon: 3 daemons, quorum ceph01,ceph02,ceph03 (age 62m)
+    mgr: ceph01.gwcwvz(active, since 97m), standbys: ceph02.ztsjzq, ceph03.otsafz
+    osd: 12 osds: 12 up (since 6m), 12 in (since 7m)
+ 
+  data:
+    pools:   1 pools, 1 pgs
+    objects: 2 objects, 449 KiB
+    usage:   252 MiB used, 360 GiB / 360 GiB avail
+    pgs:     1 active+clean
+
+```
 
 
