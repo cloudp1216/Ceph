@@ -9,7 +9,7 @@
 |4   |172.16.0.114 |ceph04           |Rocky8.7  |/dev/vdb,/dev/vdc,/dev/vdd  |
 
 
-## 二、基础环境配置（除了免密登录其它节点都需要配置）
+## 二、基础环境配置
 #### 1、调整hosts：
 ```shell
 [root@ceph01 ~]# vi /etc/hosts
