@@ -316,7 +316,7 @@ Scheduled mgr update...
 
 ```
 
-#### 9、通过浏览器打开ceph控制台：
+#### 9、通过浏览器访问 https://172.16.0.111:8443 打开ceph控制台：
 ![](./img/ceph-1.jpg)
 ![](./img/ceph-2.jpg)
 
