@@ -18,7 +18,6 @@
 172.16.0.112 ceph02
 172.16.0.113 ceph03
 172.16.0.114 ceph04
-
 ```
 
 #### 2、配置ceph01到其它节点免密：
@@ -294,6 +293,27 @@ Scheduled mgr update...
 [root@ceph01 ~]# ceph orch daemon add osd ceph04:/dev/vdb raw
 [root@ceph01 ~]# ceph orch daemon add osd ceph04:/dev/vdc raw
 [root@ceph01 ~]# ceph orch daemon add osd ceph04:/dev/vdd raw
+```
+```shell
+[root@ceph01 ~]# ceph osd tree
+ID  CLASS  WEIGHT   TYPE NAME        STATUS  REWEIGHT  PRI-AFF
+-1         0.35156  root default                              
+-3         0.08789      host ceph01                           
+ 0    hdd  0.02930          osd.0        up   1.00000  1.00000
+ 1    hdd  0.02930          osd.1        up   1.00000  1.00000
+ 2    hdd  0.02930          osd.2        up   1.00000  1.00000
+-5         0.08789      host ceph02                           
+ 3    hdd  0.02930          osd.3        up   1.00000  1.00000
+ 4    hdd  0.02930          osd.4        up   1.00000  1.00000
+ 5    hdd  0.02930          osd.5        up   1.00000  1.00000
+-7         0.08789      host ceph03                           
+ 6    hdd  0.02930          osd.6        up   1.00000  1.00000
+ 7    hdd  0.02930          osd.7        up   1.00000  1.00000
+ 8    hdd  0.02930          osd.8        up   1.00000  1.00000
+-9         0.08789      host ceph04                           
+ 9    hdd  0.02930          osd.9        up   1.00000  1.00000
+10    hdd  0.02930          osd.10       up   1.00000  1.00000
+11    hdd  0.02930          osd.11       up   1.00000  1.00000
 ```
 
 #### 8、查看集群状态：
