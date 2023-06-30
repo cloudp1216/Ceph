@@ -2,7 +2,7 @@
 
 ## 一、Ceph集群规划
 |ID  |服务器IP     |主机名           |系统版本  |磁盘                        |
-|:-: |:-:          |:-:              |:-:       |:-:                         |
+|:-: |:-:          |:-               |:-:       |:-:                         |
 |1   |172.16.0.111 |ceph01,registry  |Rocky8.7  |/dev/vdb,/dev/vdc,/dev/vdd  |
 |2   |172.16.0.112 |ceph02           |Rocky8.7  |/dev/vdb,/dev/vdc,/dev/vdd  |
 |3   |172.16.0.113 |ceph03           |Rocky8.7  |/dev/vdb,/dev/vdc,/dev/vdd  |
