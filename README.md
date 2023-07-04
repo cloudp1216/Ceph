@@ -341,3 +341,95 @@ ID  CLASS  WEIGHT   TYPE NAME        STATUS  REWEIGHT  PRI-AFF
 ![](./img/ceph-2.jpg)
 
 
+## 七、部署CephFS
+#### 1、创建纠删码规则（注意：故障域为osd级别）：
+```shell
+[root@ceph01 ~]# ceph osd erasure-code-profile set ec k=4 m=2 crush-failure-domain=osd --force
+```
+```shell
+[root@ceph01 ~]# ceph osd erasure-code-profile get ec  # 查看
+crush-device-class=
+crush-failure-domain=osd
+crush-root=default
+jerasure-per-chunk-alignment=false
+k=4
+m=2
+plugin=jerasure
+technique=reed_sol_van
+w=8
+```
+
+#### 2、创建 clush rule：
+```shell
+[root@ceph01 ~]# ceph osd crush rule create-erasure ec ec
+created rule ec at 1
+```
+```shell
+[root@ceph01 ~]# ceph osd crush rule dump ec   # 查看
+{
+    "rule_id": 1,
+    "rule_name": "ec",
+    "type": 3,
+    "steps": [
+        {
+            "op": "set_chooseleaf_tries",
+            "num": 5
+        },
+        {
+            "op": "set_choose_tries",
+            "num": 100
+        },
+        {
+            "op": "take",
+            "item": -1,
+            "item_name": "default"
+        },
+        {
+            "op": "choose_indep",
+            "num": 0,
+            "type": "osd"
+        },
+        {
+            "op": "emit"
+        }
+    ]
+}
+```
+
+#### 3、创建元数据池：
+```shell
+[root@ceph01 ~]# ceph osd pool create cephfs-metadata 32 32
+pool 'cephfs-metadata' created
+```
+```shell
+[root@ceph01 ~]# ceph osd pool application enable cephfs-metadata cephfs
+enabled application 'cephfs' on pool 'cephfs-metadata'
+```
+
+#### 4、创建纠删码池：
+```shell
+[root@ceph01 ~]# ceph osd pool create cephfs-data 128 128 erasure ec ec
+pool 'cephfs-data' created
+```
+```shell
+[root@ceph01 ~]# ceph osd pool set cephfs-data allow_ec_overwrites true
+set pool 3 allow_ec_overwrites to true
+```
+```shell
+[root@ceph01 ~]# ceph osd pool application enable cephfs-data cephfs
+enabled application 'cephfs' on pool 'cephfs-data'
+```
+
+#### 5、创建cephfs：
+```shell
+[root@ceph01 ~]# ceph fs new cephfs cephfs-metadata cephfs-data --force
+new fs with metadata pool 2 and data pool 3
+```
+
+#### 6、部署mds：
+```shell
+[root@ceph01 ~]# ceph orch apply mds cephfs "ceph01,ceph02,ceph03"
+Scheduled mds.cephfs update...
+```
+
+
