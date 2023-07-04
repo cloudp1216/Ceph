@@ -359,7 +359,7 @@ technique=reed_sol_van
 w=8
 ```
 
-#### 2、创建 clush rule：
+#### 2、创建 crush rule：
 ```shell
 [root@ceph01 ~]# ceph osd crush rule create-erasure ec ec
 created rule ec at 1
