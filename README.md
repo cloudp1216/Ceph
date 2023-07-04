@@ -445,7 +445,7 @@ root@node01:~# apt install ceph-common
 
 #### 2、挂载cephfs：
 ```shell
-root@node01:~# mount -t ceph -o name=admin,secret=AQBdPJ5kvd07NxAAeVVZTpjZH/+jRxmb8lDP4Q== 172.16.0.111:6789,172.16.0.112:6789,172.16.0.113:6789:/ /mnt/
+root@node01:~# mount -t ceph -o name=admin,secret=AQBdPJ5kvd07NxAAeVV....... 172.16.0.111:6789,172.16.0.112:6789,172.16.0.113:6789:/ /mnt/
 ```
 ```shell
 root@node01:~# df -hT
