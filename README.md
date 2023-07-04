@@ -347,7 +347,7 @@ ID  CLASS  WEIGHT   TYPE NAME        STATUS  REWEIGHT  PRI-AFF
 [root@ceph01 ~]# ceph osd erasure-code-profile set ec k=4 m=2 crush-failure-domain=osd --force
 ```
 ```shell
-[root@ceph01 ~]# ceph osd erasure-code-profile get ec  # 查看
+[root@ceph01 ~]# ceph osd erasure-code-profile get ec   # 查看
 crush-device-class=
 crush-failure-domain=osd
 crush-root=default
@@ -363,37 +363,6 @@ w=8
 ```shell
 [root@ceph01 ~]# ceph osd crush rule create-erasure ec ec
 created rule ec at 1
-```
-```shell
-[root@ceph01 ~]# ceph osd crush rule dump ec   # 查看
-{
-    "rule_id": 1,
-    "rule_name": "ec",
-    "type": 3,
-    "steps": [
-        {
-            "op": "set_chooseleaf_tries",
-            "num": 5
-        },
-        {
-            "op": "set_choose_tries",
-            "num": 100
-        },
-        {
-            "op": "take",
-            "item": -1,
-            "item_name": "default"
-        },
-        {
-            "op": "choose_indep",
-            "num": 0,
-            "type": "osd"
-        },
-        {
-            "op": "emit"
-        }
-    ]
-}
 ```
 
 #### 3、创建元数据池：
