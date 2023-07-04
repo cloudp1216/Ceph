@@ -412,6 +412,10 @@ enabled application 'cephfs' on pool 'cephfs-metadata'
 pool 'cephfs-data' created
 ```
 ```shell
+[root@ceph01 ~]# ceph osd pool set cephfs-data min_size 6
+set pool 3 min_size to 6
+```
+```shell
 [root@ceph01 ~]# ceph osd pool set cephfs-data allow_ec_overwrites true
 set pool 3 allow_ec_overwrites to true
 ```
@@ -430,6 +434,24 @@ new fs with metadata pool 2 and data pool 3
 ```shell
 [root@ceph01 ~]# ceph orch apply mds cephfs "ceph01,ceph02,ceph03"
 Scheduled mds.cephfs update...
+```
+
+
+## 八、客户端挂载CephFS
+#### 1、客户端安装ceph-common：
+```shell
+root@node01:~# apt install ceph-common
+```
+
+#### 2、挂载cephfs：
+```shell
+root@node01:~# mount -t ceph -o name=admin,secret=AQBdPJ5kvd07NxAAeVVZTpjZH/+jRxmb8lDP4Q== 172.16.0.111:6789,172.16.0.112:6789,172.16.0.113:6789:/ /mnt/
+```
+```shell
+root@node01:~# df -hT
+Filesystem                                              Type      Size  Used Avail Use% Mounted on
+...
+172.16.0.111:6789,172.16.0.112:6789,172.16.0.113:6789:/ ceph      228G     0  228G   0% /mnt
 ```
 
 
