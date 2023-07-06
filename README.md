@@ -484,10 +484,10 @@ root@node01:/mnt# dd if=/dev/zero of=10G bs=1M count=10240
 
 #### 4、读数据测试：
 ```shell
-root@node08:/mnt# dd if=10G of=/dev/null bs=1M count=10240
+root@node01:/mnt# dd if=10G of=/dev/null bs=1M count=10240
 10240+0 records in
 10240+0 records out
-10737418240 bytes (11 GB, 10 GiB) copied, 1.34716 s, 8.0 GB/s
+10737418240 bytes (11 GB, 10 GiB) copied, 1.30639 s, 8.2 GB/s
 ```
 
 
