@@ -84,6 +84,9 @@ pool ntp.speech.local iburst
   "exec-opts": ["native.cgroupdriver=systemd"]
 }
 ```
+```shell
+[root@ceph01 ~]# systemctl restart docker
+```
 
 
 ## 三、部署registry（仅在ceph01部署）
