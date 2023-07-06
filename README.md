@@ -140,7 +140,7 @@ maxwo/snmp-notifier                v1.2.1             7ca9dd8b3f09   22 months a
 
 #### 3、安装ceph-common：
 ```shell
-[root@ceph01 ~]# cd ceph-v17.2.6/5.ceph/2.ceph/
+[root@ceph01 1.epel-dependent]# cd ../2.ceph/
 [root@ceph01 2.ceph]# dnf localinstall *
 ```
 
@@ -403,6 +403,48 @@ new fs with metadata pool 2 and data pool 3
 ```shell
 [root@ceph01 ~]# ceph orch apply mds cephfs "ceph01,ceph02,ceph03"
 Scheduled mds.cephfs update...
+```
+
+#### 7、查查进程：
+```shell
+[root@ceph01 ~]# ceph orch ps
+NAME                      HOST    PORTS        STATUS         REFRESHED  AGE  MEM USE  MEM LIM  VERSION  IMAGE ID      CONTAINER ID  
+alertmanager.ceph01       ceph01  *:9093,9094  running (21m)     2m ago  34m    24.7M        -  0.23.0   ba2b418f427c  bf2abcf672bc  
+ceph-exporter.ceph01      ceph01               running (34m)     2m ago  34m    8051k        -  17.2.6   52bedc025a3c  f2066704e51c  
+ceph-exporter.ceph02      ceph02               running (32m)     2m ago  32m    8252k        -  17.2.6   52bedc025a3c  98ab4c8ef674  
+ceph-exporter.ceph03      ceph03               running (22m)     2m ago  22m    8196k        -  17.2.6   52bedc025a3c  7534f83a0130  
+ceph-exporter.ceph04      ceph04               running (31m)     3m ago  31m    7528k        -  17.2.6   52bedc025a3c  eb9766fd51ac  
+crash.ceph01              ceph01               running (34m)     2m ago  34m    7063k        -  17.2.6   52bedc025a3c  366ee30420fb  
+crash.ceph02              ceph02               running (32m)     2m ago  32m    7075k        -  17.2.6   52bedc025a3c  99a905520495  
+crash.ceph03              ceph03               running (22m)     2m ago  22m    7067k        -  17.2.6   52bedc025a3c  55e93441d1c6  
+crash.ceph04              ceph04               running (31m)     3m ago  31m    7060k        -  17.2.6   52bedc025a3c  896a16dfd859  
+grafana.ceph01            ceph01  *:3000       running (33m)     2m ago  34m    60.8M        -  8.3.5    dad864ee21e9  3e2a28543d2b  
+mds.cephfs.ceph01.nqqpdj  ceph01               running (2m)      2m ago   2m    16.6M        -  17.2.6   52bedc025a3c  2a8aeaf4483e  
+mds.cephfs.ceph02.jvmtuu  ceph02               running (2m)      2m ago   2m    11.9M        -  17.2.6   52bedc025a3c  f1b6706181ac  
+mds.cephfs.ceph03.btvodb  ceph03               running (2m)      2m ago   2m    17.6M        -  17.2.6   52bedc025a3c  7d284603946e  
+mgr.ceph01.bgxlqh         ceph01  *:9283       running (35m)     2m ago  35m     496M        -  17.2.6   52bedc025a3c  2511f94c436f  
+mgr.ceph02.ovbkxu         ceph02  *:8443,9283  running (32m)     2m ago  32m     413M        -  17.2.6   52bedc025a3c  363b0b90bc88  
+mgr.ceph03.bnslup         ceph03  *:8443,9283  running (22m)     2m ago  22m     412M        -  17.2.6   52bedc025a3c  431eb69ecf63  
+mon.ceph01                ceph01               running (25m)     2m ago  35m    63.3M    2048M  17.2.6   52bedc025a3c  72f59027a3ec  
+mon.ceph02                ceph02               running (25m)     2m ago  32m    57.7M    2048M  17.2.6   52bedc025a3c  ed712f7826ac  
+mon.ceph03                ceph03               running (22m)     2m ago  22m    50.2M    2048M  17.2.6   52bedc025a3c  08120a5b7634  
+node-exporter.ceph01      ceph01  *:9100       running (34m)     2m ago  34m    21.0M        -  1.3.1    1dbe0e931976  c4d593803c26  
+node-exporter.ceph02      ceph02  *:9100       running (32m)     2m ago  32m    24.5M        -  1.3.1    1dbe0e931976  d2fa76e6e9b7  
+node-exporter.ceph03      ceph03  *:9100       running (23m)     2m ago  32m    22.9M        -  1.3.1    1dbe0e931976  252f7076ac76  
+node-exporter.ceph04      ceph04  *:9100       running (31m)     3m ago  31m    24.9M        -  1.3.1    1dbe0e931976  4e9bb7e4a4f5  
+osd.0                     ceph01               running (22m)     2m ago  22m    72.7M    4096M  17.2.6   52bedc025a3c  846c93c39d55  
+osd.1                     ceph01               running (21m)     2m ago  21m    73.4M    4096M  17.2.6   52bedc025a3c  3b7b25d93c50  
+osd.2                     ceph01               running (21m)     2m ago  21m    70.5M    4096M  17.2.6   52bedc025a3c  019e2053c8ba  
+osd.3                     ceph02               running (20m)     2m ago  20m    76.9M    1305M  17.2.6   52bedc025a3c  04c0def0b579  
+osd.4                     ceph02               running (19m)     2m ago  19m    72.8M    1305M  17.2.6   52bedc025a3c  a8977ef061b8  
+osd.5                     ceph02               running (19m)     2m ago  19m    75.8M    1305M  17.2.6   52bedc025a3c  44204c013b95  
+osd.6                     ceph03               running (17m)     2m ago  17m    72.0M    1305M  17.2.6   52bedc025a3c  e1d0f05f5ccb  
+osd.7                     ceph03               running (17m)     2m ago  17m    73.0M    1305M  17.2.6   52bedc025a3c  bf658246bad2  
+osd.8                     ceph03               running (16m)     2m ago  16m    73.2M    1305M  17.2.6   52bedc025a3c  c870fbd95b74  
+osd.9                     ceph04               running (14m)     3m ago  15m    70.2M    3012M  17.2.6   52bedc025a3c  548eee35305a  
+osd.10                    ceph04               running (14m)     3m ago  14m    70.4M    3012M  17.2.6   52bedc025a3c  a6e004f029fa  
+osd.11                    ceph04               running (13m)     3m ago  14m    68.3M    3012M  17.2.6   52bedc025a3c  f1d39959e278  
+prometheus.ceph01         ceph01  *:9095       running (21m)     2m ago  34m     105M        -  2.33.4   514e6a882f6e  6000e71bec1f  
 ```
 
 
