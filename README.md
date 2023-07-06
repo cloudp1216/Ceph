@@ -473,13 +473,21 @@ Filesystem                                              Type      Size  Used Ava
 172.16.0.111:6789,172.16.0.112:6789,172.16.0.113:6789:/ ceph      228G     0  228G   0% /mnt
 ```
 
-#### 3、写入数据测试：
+#### 3、写数据测试：
 ```shell
 root@node01:~# cd /mnt/
 root@node01:/mnt# dd if=/dev/zero of=10G bs=1M count=10240
 10240+0 records in
 10240+0 records out
 10737418240 bytes (11 GB, 10 GiB) copied, 3.62128 s, 3.0 GB/s
+```
+
+#### 4、读数据测试：
+```shell
+root@node08:/mnt# dd if=10G of=/dev/null bs=1M count=10240
+10240+0 records in
+10240+0 records out
+10737418240 bytes (11 GB, 10 GiB) copied, 1.34716 s, 8.0 GB/s
 ```
 
 
