@@ -58,7 +58,12 @@ mount: /media: WARNING: device write-protected, mounted read-only.
 [root@ceph01 ~]# dnf makecache
 ```
 
-#### 4、配置时间同步：
+#### 4、安装依赖python3、lvm2
+```shell
+[root@ceph01 ~]# dnf install python3 lvm2
+```
+
+#### 5、配置时间同步：
 ```shell
 [root@ceph01 ~]# dnf install chrony
 [root@ceph01 ~]# vi /etc/chrony.conf
@@ -70,13 +75,13 @@ pool ntp.speech.local iburst
 200 OK
 ```
 
-#### 5、离线部署docker：
+#### 6、离线部署docker：
 ```shell
 [root@ceph01 ~]# cd ceph-v17.2.6/1.docker-ce
 [root@ceph01 1.docker-ce]# dnf localinstall *
 ```
 
-#### 6、调整docker配置文件，指定registry：
+#### 7、调整docker配置文件，指定registry：
 ```shell
 [root@ceph01 ~]# vi /etc/docker/daemon.json
 {
