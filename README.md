@@ -350,7 +350,7 @@ ID  CLASS  WEIGHT   TYPE NAME        STATUS  REWEIGHT  PRI-AFF
 
 
 ## 七、部署CephFS
-#### 1、创建纠删码规则（注意：故障域为osd级别）：
+#### 1、创建纠删码规则（注意：故障域为osd级别，默认host级别最少需要6个节点）：
 ```shell
 [root@ceph01 ~]# ceph osd erasure-code-profile set ec k=4 m=2 crush-failure-domain=osd --force
 ```
