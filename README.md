@@ -413,7 +413,7 @@ new fs with metadata pool 2 and data pool 3
 Scheduled mds.cephfs update...
 ```
 
-#### 7、查查进程：
+#### 7、查看进程：
 ```shell
 [root@ceph01 ~]# ceph orch ps
 NAME                      HOST    PORTS        STATUS         REFRESHED  AGE  MEM USE  MEM LIM  VERSION  IMAGE ID      CONTAINER ID  
