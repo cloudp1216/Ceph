@@ -58,7 +58,7 @@ mount: /media: WARNING: device write-protected, mounted read-only.
 [root@ceph01 ~]# dnf makecache
 ```
 
-#### 4、安装依赖python3、lvm2
+#### 4、安装依赖：python3、lvm2
 ```shell
 [root@ceph01 ~]# dnf install python3 lvm2
 ```
