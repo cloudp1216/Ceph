@@ -487,7 +487,10 @@ root@node01:/mnt# dd if=10G of=/dev/null bs=1M count=10240
 
 
 ## 九、替换故障盘
-#### 1、停止osd容器：
+#### 1、确定osd对应的存储设备，并停止osd容器：
+```shell
+[root@ceph01 ~]# ceph osd metadata osd.3
+```
 ```shell
 [root@ceph01 ~]# ceph orch daemon stop osd.3
 Scheduled to stop osd.3 on host 'ceph01'
