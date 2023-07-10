@@ -412,7 +412,7 @@ Scheduled mds.cephfs update...
 #### 7、创建cephfs用户：
 ```shell
 [root@ceph01 ~]# ceph auth get-or-create client.cephfs mon 'allow r' mgr 'allow r' mds 'allow *' osd 'allow *' -o /etc/ceph/ceph.client.cephfs.keyring
-[root@ceph01 ~]# cat  /etc/ceph/ceph.client.cephfs.keyring
+[root@ceph01 ~]# cat /etc/ceph/ceph.client.cephfs.keyring
 [client.cephfs]
     key = AQAS6qtkcuyMJRAA0Hn...
 ```
