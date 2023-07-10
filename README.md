@@ -528,9 +528,9 @@ Removed osd.3 from host 'ceph01'
 zap successful for /dev/vdb on ceph01
 ```
 
-#### 8、重新创建osd：
+#### 8、重新创建osd（一般--all-available-devices部署的会自动创建，如果没有自动创建，请执行以下命令）：
 ```shell
-[root@ceph01 ~]# ceph orch apply osd --all-available-devices  # 或手动添加
+[root@ceph01 ~]# ceph orch apply osd --all-available-devices
 Scheduled osd.all-available-devices update...
 ```
 
