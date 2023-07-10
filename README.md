@@ -289,21 +289,16 @@ Scheduled mgr update...
 
 #### 7、添加osd
 ```shell
-[root@ceph01 ~]# ceph orch daemon add osd ceph01:/dev/vdb raw
-[root@ceph01 ~]# ceph orch daemon add osd ceph01:/dev/vdc raw
-[root@ceph01 ~]# ceph orch daemon add osd ceph01:/dev/vdd raw
-[root@ceph01 ~]# ceph orch daemon add osd ceph02:/dev/vdb raw
-[root@ceph01 ~]# ceph orch daemon add osd ceph02:/dev/vdc raw
-[root@ceph01 ~]# ceph orch daemon add osd ceph02:/dev/vdd raw
-[root@ceph01 ~]# ceph orch daemon add osd ceph03:/dev/vdb raw
-[root@ceph01 ~]# ceph orch daemon add osd ceph03:/dev/vdc raw
-[root@ceph01 ~]# ceph orch daemon add osd ceph03:/dev/vdd raw
-[root@ceph01 ~]# ceph orch daemon add osd ceph04:/dev/vdb raw
-[root@ceph01 ~]# ceph orch daemon add osd ceph04:/dev/vdc raw
-[root@ceph01 ~]# ceph orch daemon add osd ceph04:/dev/vdd raw
+[root@ceph01 ~]# ceph orch apply osd --all-available-devices  # 使用所有可用设备
+Scheduled osd.all-available-devices update...
 ```
 ```shell
-[root@ceph01 ~]# ceph osd tree
+[root@ceph01 ~]# ceph orch daemon add osd ceph01:/dev/vdb     # 或手动添加所有设备，二选一
+[root@ceph01 ~]# ceph orch daemon add osd ceph01:/dev/vdc
+[root@ceph01 ~]# ceph orch daemon add osd ceph01:/dev/vdd
+```
+```shell
+[root@ceph01 ~]# ceph osd tree                                # 查看osd
 ID  CLASS  WEIGHT   TYPE NAME        STATUS  REWEIGHT  PRI-AFF
 -1         0.35156  root default                              
 -3         0.08789      host ceph01                           
@@ -488,6 +483,55 @@ root@node01:/mnt# dd if=10G of=/dev/null bs=1M count=10240
 10240+0 records in
 10240+0 records out
 10737418240 bytes (11 GB, 10 GiB) copied, 1.30639 s, 8.2 GB/s
+```
+
+
+## 九、替换故障盘
+#### 1、停止osd容器：
+```shell
+[root@ceph01 ~]# ceph orch daemon stop osd.3
+Scheduled to stop osd.3 on host 'ceph01'
+```
+
+#### 2、从集群中移除osd：
+```shell
+[root@ceph01 ~]# ceph osd out osd.3
+marked out osd.3. 
+```
+
+#### 3、从crush map中移除osd：
+```shell
+[root@ceph01 ~]# ceph osd crush remove osd.3
+removed item id 3 name 'osd.3' from crush map
+```
+
+#### 4、删除osd身份认证秘钥：
+```shell
+[root@ceph01 ~]# ceph auth del osd.3
+```
+
+#### 5、删除osd：
+```shell
+[root@ceph01 ~]# ceph osd rm osd.3
+removed osd.3
+```
+```shell
+[root@ceph01 ~]# ceph orch daemon rm osd.3 --force
+Removed osd.3 from host 'ceph01'
+```
+
+#### 6、替换故障盘（一般服务器都支持热插拔）
+
+#### 7、擦除新磁盘：
+```shell
+[root@ceph01 ~]# ceph orch device zap ceph01 /dev/vdb --force
+zap successful for /dev/vdb on ceph01
+```
+
+#### 8、重新创建osd：
+```shell
+[root@ceph01 ~]# ceph orch apply osd --all-available-devices  # 或手动添加
+Scheduled osd.all-available-devices update...
 ```
 
 
