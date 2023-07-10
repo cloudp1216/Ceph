@@ -135,7 +135,7 @@ maxwo/snmp-notifier                v1.2.1             7ca9dd8b3f09   22 months a
 
 
 ## 五、安装cephadm、ceph-common（仅管理节点）
-#### 1、安装cephadm
+#### 1、安装cephadm：
 ```shell
 [root@ceph01 ~]# cp ceph-v17.2.6/4.cephadm/cephadm /usr/sbin
 ```
@@ -265,7 +265,7 @@ ceph01  172.16.0.111  _admin
 1 hosts in cluster
 ```
 
-#### 4、添加节点ceph02、ceph03、ceph04到集群
+#### 4、添加节点ceph02、ceph03、ceph04到集群：
 ```shell
 [root@ceph01 ~]# ceph orch host add ceph02 172.16.0.112
 Added host 'ceph02' with addr '172.16.0.112'
@@ -275,19 +275,19 @@ Added host 'ceph03' with addr '172.16.0.113'
 Added host 'ceph04' with addr '172.16.0.114'
 ```
 
-#### 5、添加mon
+#### 5、添加mon：
 ```shell
 [root@ceph01 ~]# ceph orch apply mon "ceph01,ceph02,ceph03"
 Scheduled mon update...
 ```
 
-#### 6、添加mgr
+#### 6、添加mgr：
 ```shell
 [root@ceph01 ~]# ceph orch apply mgr "ceph01,ceph02,ceph03"
 Scheduled mgr update...
 ```
 
-#### 7、添加osd
+#### 7、添加osd：
 ```shell
 [root@ceph01 ~]# ceph orch apply osd --all-available-devices  # 使用所有可用设备
 Scheduled osd.all-available-devices update...
