@@ -409,7 +409,15 @@ new fs with metadata pool 2 and data pool 3
 Scheduled mds.cephfs update...
 ```
 
-#### 7、查看进程：
+#### 7、创建cephfs用户：
+```shell
+[root@ceph01 ~]# ceph auth get-or-create client.cephfs mon 'allow r' mgr 'allow r' mds 'allow *' osd 'allow *' -o /etc/ceph/ceph.client.cephfs.keyring
+[root@ceph01 ~]# cat  /etc/ceph/ceph.client.cephfs.keyring
+[client.cephfs]
+    key = AQAS6qtkcuyMJRAA0Hn...
+```
+
+#### 8、查看进程：
 ```shell
 [root@ceph01 ~]# ceph orch ps
 NAME                  HOST    PORTS        STATUS         REFRESHED  AGE  MEM USE  MEM LIM  VERSION  IMAGE ID      CONTAINER ID  
@@ -457,7 +465,7 @@ root@node01:~# apt install ceph-common
 
 #### 2、挂载cephfs：
 ```shell
-root@node01:~# mount -t ceph -o name=admin,secret=AQBdPJ5kvd07NxAAeVV....... 172.16.0.111:6789,172.16.0.112:6789,172.16.0.113:6789:/ /mnt/
+root@node01:~# mount -t ceph -o name=cephfs,secret=AQAS6qtkcuyMJRAA0Hn... 172.16.0.111:6789,172.16.0.112:6789,172.16.0.113:6789:/ /mnt/
 ```
 ```shell
 root@node01:~# df -hT
