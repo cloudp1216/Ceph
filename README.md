@@ -484,7 +484,7 @@ root@node01:/mnt# dd if=10G of=/dev/null bs=1M count=10240
 
 
 ## 九、替换故障盘
-#### 1、确定osd对应的存储设备：
+#### 1、确定osd对应的磁盘：
 ```shell
 [root@ceph01 ~]# ceph osd metadata osd.3
 ```
