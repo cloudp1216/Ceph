@@ -301,22 +301,22 @@ Scheduled osd.all-available-devices update...
 [root@ceph01 ~]# ceph osd tree                                # 查看osd
 ID  CLASS  WEIGHT   TYPE NAME        STATUS  REWEIGHT  PRI-AFF
 -1         0.35156  root default                              
--3         0.08789      host ceph01                           
- 0    hdd  0.02930          osd.0        up   1.00000  1.00000
- 1    hdd  0.02930          osd.1        up   1.00000  1.00000
- 2    hdd  0.02930          osd.2        up   1.00000  1.00000
--5         0.08789      host ceph02                           
+-9         0.08789      host ceph01                           
  3    hdd  0.02930          osd.3        up   1.00000  1.00000
- 4    hdd  0.02930          osd.4        up   1.00000  1.00000
- 5    hdd  0.02930          osd.5        up   1.00000  1.00000
--7         0.08789      host ceph03                           
- 6    hdd  0.02930          osd.6        up   1.00000  1.00000
  7    hdd  0.02930          osd.7        up   1.00000  1.00000
- 8    hdd  0.02930          osd.8        up   1.00000  1.00000
--9         0.08789      host ceph04                           
- 9    hdd  0.02930          osd.9        up   1.00000  1.00000
-10    hdd  0.02930          osd.10       up   1.00000  1.00000
 11    hdd  0.02930          osd.11       up   1.00000  1.00000
+-3         0.08789      host ceph02                           
+ 2    hdd  0.02930          osd.2        up   1.00000  1.00000
+ 5    hdd  0.02930          osd.5        up   1.00000  1.00000
+ 8    hdd  0.02930          osd.8        up   1.00000  1.00000
+-7         0.08789      host ceph03                           
+ 1    hdd  0.02930          osd.1        up   1.00000  1.00000
+ 4    hdd  0.02930          osd.4        up   1.00000  1.00000
+ 9    hdd  0.02930          osd.9        up   1.00000  1.00000
+-5         0.08789      host ceph04                           
+ 0    hdd  0.02930          osd.0        up   1.00000  1.00000
+ 6    hdd  0.02930          osd.6        up   1.00000  1.00000
+10    hdd  0.02930          osd.10       up   1.00000  1.00000
 ```
 
 #### 8、查看集群状态：
@@ -411,43 +411,40 @@ Scheduled mds.cephfs update...
 #### 7、查看进程：
 ```shell
 [root@ceph01 ~]# ceph orch ps
-NAME                      HOST    PORTS        STATUS         REFRESHED  AGE  MEM USE  MEM LIM  VERSION  IMAGE ID      CONTAINER ID  
-alertmanager.ceph01       ceph01  *:9093,9094  running (21m)     2m ago  34m    24.7M        -  0.23.0   ba2b418f427c  bf2abcf672bc  
-ceph-exporter.ceph01      ceph01               running (34m)     2m ago  34m    8051k        -  17.2.6   52bedc025a3c  f2066704e51c  
-ceph-exporter.ceph02      ceph02               running (32m)     2m ago  32m    8252k        -  17.2.6   52bedc025a3c  98ab4c8ef674  
-ceph-exporter.ceph03      ceph03               running (22m)     2m ago  22m    8196k        -  17.2.6   52bedc025a3c  7534f83a0130  
-ceph-exporter.ceph04      ceph04               running (31m)     3m ago  31m    7528k        -  17.2.6   52bedc025a3c  eb9766fd51ac  
-crash.ceph01              ceph01               running (34m)     2m ago  34m    7063k        -  17.2.6   52bedc025a3c  366ee30420fb  
-crash.ceph02              ceph02               running (32m)     2m ago  32m    7075k        -  17.2.6   52bedc025a3c  99a905520495  
-crash.ceph03              ceph03               running (22m)     2m ago  22m    7067k        -  17.2.6   52bedc025a3c  55e93441d1c6  
-crash.ceph04              ceph04               running (31m)     3m ago  31m    7060k        -  17.2.6   52bedc025a3c  896a16dfd859  
-grafana.ceph01            ceph01  *:3000       running (33m)     2m ago  34m    60.8M        -  8.3.5    dad864ee21e9  3e2a28543d2b  
-mds.cephfs.ceph01.nqqpdj  ceph01               running (2m)      2m ago   2m    16.6M        -  17.2.6   52bedc025a3c  2a8aeaf4483e  
-mds.cephfs.ceph02.jvmtuu  ceph02               running (2m)      2m ago   2m    11.9M        -  17.2.6   52bedc025a3c  f1b6706181ac  
-mds.cephfs.ceph03.btvodb  ceph03               running (2m)      2m ago   2m    17.6M        -  17.2.6   52bedc025a3c  7d284603946e  
-mgr.ceph01.bgxlqh         ceph01  *:9283       running (35m)     2m ago  35m     496M        -  17.2.6   52bedc025a3c  2511f94c436f  
-mgr.ceph02.ovbkxu         ceph02  *:8443,9283  running (32m)     2m ago  32m     413M        -  17.2.6   52bedc025a3c  363b0b90bc88  
-mgr.ceph03.bnslup         ceph03  *:8443,9283  running (22m)     2m ago  22m     412M        -  17.2.6   52bedc025a3c  431eb69ecf63  
-mon.ceph01                ceph01               running (25m)     2m ago  35m    63.3M    2048M  17.2.6   52bedc025a3c  72f59027a3ec  
-mon.ceph02                ceph02               running (25m)     2m ago  32m    57.7M    2048M  17.2.6   52bedc025a3c  ed712f7826ac  
-mon.ceph03                ceph03               running (22m)     2m ago  22m    50.2M    2048M  17.2.6   52bedc025a3c  08120a5b7634  
-node-exporter.ceph01      ceph01  *:9100       running (34m)     2m ago  34m    21.0M        -  1.3.1    1dbe0e931976  c4d593803c26  
-node-exporter.ceph02      ceph02  *:9100       running (32m)     2m ago  32m    24.5M        -  1.3.1    1dbe0e931976  d2fa76e6e9b7  
-node-exporter.ceph03      ceph03  *:9100       running (23m)     2m ago  32m    22.9M        -  1.3.1    1dbe0e931976  252f7076ac76  
-node-exporter.ceph04      ceph04  *:9100       running (31m)     3m ago  31m    24.9M        -  1.3.1    1dbe0e931976  4e9bb7e4a4f5  
-osd.0                     ceph01               running (22m)     2m ago  22m    72.7M    4096M  17.2.6   52bedc025a3c  846c93c39d55  
-osd.1                     ceph01               running (21m)     2m ago  21m    73.4M    4096M  17.2.6   52bedc025a3c  3b7b25d93c50  
-osd.2                     ceph01               running (21m)     2m ago  21m    70.5M    4096M  17.2.6   52bedc025a3c  019e2053c8ba  
-osd.3                     ceph02               running (20m)     2m ago  20m    76.9M    1305M  17.2.6   52bedc025a3c  04c0def0b579  
-osd.4                     ceph02               running (19m)     2m ago  19m    72.8M    1305M  17.2.6   52bedc025a3c  a8977ef061b8  
-osd.5                     ceph02               running (19m)     2m ago  19m    75.8M    1305M  17.2.6   52bedc025a3c  44204c013b95  
-osd.6                     ceph03               running (17m)     2m ago  17m    72.0M    1305M  17.2.6   52bedc025a3c  e1d0f05f5ccb  
-osd.7                     ceph03               running (17m)     2m ago  17m    73.0M    1305M  17.2.6   52bedc025a3c  bf658246bad2  
-osd.8                     ceph03               running (16m)     2m ago  16m    73.2M    1305M  17.2.6   52bedc025a3c  c870fbd95b74  
-osd.9                     ceph04               running (14m)     3m ago  15m    70.2M    3012M  17.2.6   52bedc025a3c  548eee35305a  
-osd.10                    ceph04               running (14m)     3m ago  14m    70.4M    3012M  17.2.6   52bedc025a3c  a6e004f029fa  
-osd.11                    ceph04               running (13m)     3m ago  14m    68.3M    3012M  17.2.6   52bedc025a3c  f1d39959e278  
-prometheus.ceph01         ceph01  *:9095       running (21m)     2m ago  34m     105M        -  2.33.4   514e6a882f6e  6000e71bec1f  
+NAME                  HOST    PORTS        STATUS         REFRESHED  AGE  MEM USE  MEM LIM  VERSION  IMAGE ID      CONTAINER ID  
+alertmanager.ceph01   ceph01  *:9093,9094  running (2d)      2m ago   2d    44.7M        -  0.23.0   ba2b418f427c  0ac83e4d858a  
+ceph-exporter.ceph01  ceph01               running (2d)      2m ago   2d    17.2M        -  17.2.6   52bedc025a3c  38fc6777676d  
+ceph-exporter.ceph02  ceph02               running (2d)      5m ago   2d    17.5M        -  17.2.6   52bedc025a3c  7f3232ddc9bb  
+ceph-exporter.ceph03  ceph03               running (2d)      5m ago   2d    17.4M        -  17.2.6   52bedc025a3c  0bd6747ddc3f  
+ceph-exporter.ceph04  ceph04               running (2d)      5m ago   2d    17.4M        -  17.2.6   52bedc025a3c  6cdbf48558f9  
+crash.ceph01          ceph01               running (2d)      2m ago   2d    8863k        -  17.2.6   52bedc025a3c  7704c2e1d2cc  
+crash.ceph02          ceph02               running (2d)      5m ago   2d    7067k        -  17.2.6   52bedc025a3c  f5a0ea38f48a  
+crash.ceph03          ceph03               running (2d)      5m ago   2d    7067k        -  17.2.6   52bedc025a3c  ae68215f5647  
+crash.ceph04          ceph04               running (2d)      5m ago   2d    7063k        -  17.2.6   52bedc025a3c  37ade5ea20e3  
+grafana.ceph01        ceph01  *:3000       running (2d)      2m ago   2d     116M        -  8.3.5    dad864ee21e9  f562a2aee4eb  
+mgr.ceph01.petpvx     ceph01  *:9283       running (2d)      2m ago   2d     464M        -  17.2.6   52bedc025a3c  0300ea196c1b  
+mgr.ceph02.juwtyb     ceph02  *:8443,9283  running (2d)      5m ago   2d     420M        -  17.2.6   52bedc025a3c  3ada49d4d984  
+mgr.ceph03.wmievm     ceph03  *:8443,9283  running (2d)      5m ago   2d     589M        -  17.2.6   52bedc025a3c  0ddf9be07845  
+mon.ceph01            ceph01               running (2d)      2m ago   2d     401M    2048M  17.2.6   52bedc025a3c  057c47b5094a  
+mon.ceph02            ceph02               running (2d)      5m ago   2d     401M    2048M  17.2.6   52bedc025a3c  caeca5451e43  
+mon.ceph03            ceph03               running (2d)      5m ago   2d     400M    2048M  17.2.6   52bedc025a3c  784c46073593  
+node-exporter.ceph01  ceph01  *:9100       running (2d)      2m ago   2d    32.6M        -  1.3.1    1dbe0e931976  4a9fa0b237e9  
+node-exporter.ceph02  ceph02  *:9100       running (2d)      5m ago   2d    27.3M        -  1.3.1    1dbe0e931976  27b5e7a2d2ad  
+node-exporter.ceph03  ceph03  *:9100       running (2d)      5m ago   2d    27.0M        -  1.3.1    1dbe0e931976  58339e0745eb  
+node-exporter.ceph04  ceph04  *:9100       running (2d)      5m ago   2d    25.2M        -  1.3.1    1dbe0e931976  96fdaa888e11  
+osd.0                 ceph04               running (71m)     5m ago   2d    58.0M    3012M  17.2.6   52bedc025a3c  0e677e04b40b  
+osd.1                 ceph03               running (71m)     5m ago   2d    58.4M    1305M  17.2.6   52bedc025a3c  91db3372353b  
+osd.2                 ceph02               running (72m)     5m ago   2d    58.9M    1305M  17.2.6   52bedc025a3c  be48d141a391  
+osd.3                 ceph01               running (36m)     2m ago  36m    46.7M    4096M  17.2.6   52bedc025a3c  5156eb6d82e7  
+osd.4                 ceph03               running (71m)     5m ago   2d    77.7M    1305M  17.2.6   52bedc025a3c  7a04ee94c9ff  
+osd.5                 ceph02               running (71m)     5m ago   2d    59.7M    1305M  17.2.6   52bedc025a3c  8be2b3e786d0  
+osd.6                 ceph04               running (71m)     5m ago   2d    78.5M    3012M  17.2.6   52bedc025a3c  24c1d0a84f65  
+osd.7                 ceph01               running (72m)     2m ago   2d    78.7M    4096M  17.2.6   52bedc025a3c  819b8b24c164  
+osd.8                 ceph02               running (71m)     5m ago   2d    81.5M    1305M  17.2.6   52bedc025a3c  012bd75f8bf6  
+osd.9                 ceph03               running (71m)     5m ago   2d    82.1M    1305M  17.2.6   52bedc025a3c  2ac2debf38c3  
+osd.10                ceph04               running (71m)     5m ago   2d    61.1M    3012M  17.2.6   52bedc025a3c  4491dce2bec8  
+osd.11                ceph01               running (14m)     2m ago  14m    42.8M    4096M  17.2.6   52bedc025a3c  a24452a09ea8  
+prometheus.ceph01     ceph01  *:9095       running (2d)      2m ago   2d     197M        -  2.33.4   514e6a882f6e  7e0b9e254ed6  
 ```
 
 
@@ -487,33 +484,35 @@ root@node01:/mnt# dd if=10G of=/dev/null bs=1M count=10240
 
 
 ## 九、替换故障盘
-#### 1、确定osd对应的存储设备，并停止osd容器：
+#### 1、确定osd对应的存储设备：
 ```shell
 [root@ceph01 ~]# ceph osd metadata osd.3
 ```
+
+#### 2、停止osd容器：
 ```shell
 [root@ceph01 ~]# ceph orch daemon stop osd.3
 Scheduled to stop osd.3 on host 'ceph01'
 ```
 
-#### 2、从集群中移除osd：
+#### 3、从集群中移除osd：
 ```shell
 [root@ceph01 ~]# ceph osd out osd.3
 marked out osd.3. 
 ```
 
-#### 3、从crush map中移除osd：
+#### 4、从crush map中移除osd：
 ```shell
 [root@ceph01 ~]# ceph osd crush remove osd.3
 removed item id 3 name 'osd.3' from crush map
 ```
 
-#### 4、删除osd身份认证秘钥：
+#### 5、删除osd身份认证秘钥：
 ```shell
 [root@ceph01 ~]# ceph auth del osd.3
 ```
 
-#### 5、删除osd：
+#### 6、删除osd：
 ```shell
 [root@ceph01 ~]# ceph osd rm osd.3
 removed osd.3
@@ -523,15 +522,15 @@ removed osd.3
 Removed osd.3 from host 'ceph01'
 ```
 
-#### 6、替换故障盘（一般服务器都支持热插拔）
+#### 7、替换故障盘（一般服务器都支持热插拔）
 
-#### 7、擦除新磁盘：
+#### 8、擦除新磁盘：
 ```shell
 [root@ceph01 ~]# ceph orch device zap ceph01 /dev/vdb --force
 zap successful for /dev/vdb on ceph01
 ```
 
-#### 8、重新创建osd（一般--all-available-devices部署的会自动创建，如果没有自动创建，请执行以下命令）：
+#### 9、重新创建osd（一般--all-available-devices部署的会自动创建，如果没有自动创建，请执行以下命令）：
 ```shell
 [root@ceph01 ~]# ceph orch apply osd --all-available-devices
 Scheduled osd.all-available-devices update...
