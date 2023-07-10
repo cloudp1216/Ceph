@@ -1,12 +1,12 @@
 
 
 ## 一、Ceph集群规划
-|ID  |服务器IP     |主机名           |系统版本  |磁盘                        |
-|:-: |:-:          |:-               |:-:       |:-:                         |
-|1   |172.16.0.111 |ceph01,registry  |Rocky8.7  |/dev/vdb,/dev/vdc,/dev/vdd  |
-|2   |172.16.0.112 |ceph02           |Rocky8.7  |/dev/vdb,/dev/vdc,/dev/vdd  |
-|3   |172.16.0.113 |ceph03           |Rocky8.7  |/dev/vdb,/dev/vdc,/dev/vdd  |
-|4   |172.16.0.114 |ceph04           |Rocky8.7  |/dev/vdb,/dev/vdc,/dev/vdd  |
+|ID  |服务器IP     |主机名           |系统版本  |磁盘                          |
+|:-: |:-:          |:-               |:-:       |:-:                           |
+|1   |172.16.0.111 |ceph01, registry |Rocky8.7  |/dev/vdb, /dev/vdc, /dev/vdd  |
+|2   |172.16.0.112 |ceph02           |Rocky8.7  |/dev/vdb, /dev/vdc, /dev/vdd  |
+|3   |172.16.0.113 |ceph03           |Rocky8.7  |/dev/vdb, /dev/vdc, /dev/vdd  |
+|4   |172.16.0.114 |ceph04           |Rocky8.7  |/dev/vdb, /dev/vdc, /dev/vdd  |
 
 
 ## 二、基础环境配置
@@ -296,6 +296,7 @@ Scheduled osd.all-available-devices update...
 [root@ceph01 ~]# ceph orch daemon add osd ceph01:/dev/vdb     # 或手动添加所有设备，二选一
 [root@ceph01 ~]# ceph orch daemon add osd ceph01:/dev/vdc
 [root@ceph01 ~]# ceph orch daemon add osd ceph01:/dev/vdd
+...
 ```
 ```shell
 [root@ceph01 ~]# ceph osd tree                                # 查看osd
